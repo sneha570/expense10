@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    /* Gradient Brown Background */
+    body {
+        background: linear-gradient(90deg, #4b2e2e 0%, #b5651d 100%) no-repeat center center fixed; /* Gradient background */
+        background-size: cover; /* Ensure the background covers the entire page */
+    }
+
+    .bg-image {
+        display: none; /* Hide background image */
+    }
+
+    /* Additional styles for better readability and layout */
+    .card-header {
+        background-color: #4b2e2e; /* Darker brown for the header */
+        color: white;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Change this color if needed */
+        border: none;
+        padding: 10px 5px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: transform 0.2s ease; /* Animation for scaling */
+    }
+
+    .btn-primary:hover {
+        background-color: #006bce; /* Change this color if needed */
+    }
+
+    .btn-swing {
+        animation: swing 0.5s forwards; /* Swing effect */
+    }
+
+    @keyframes swing {
+        0% { transform: rotate(0deg); }
+        20% { transform: rotate(15deg); }
+        40% { transform: rotate(-10deg); }
+        60% { transform: rotate(5deg); }
+        80% { transform: rotate(-5deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    .link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="bg-text">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-start"> <!-- Align to the left -->
+                        <div class="col-lg-3"> <!-- Adjust column size to 3 for smaller width -->
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action='/handlelogin/' method='post' id="loginForm">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label style="color: black;" class="small mb-1" for="loginuname">Username</label>
+                                            <input class="form-control py-4" id="loginuname" name="loginuname" type="text" placeholder="Enter user name" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="color: black;" class="small mb-1" for="loginpassword1">Password</label>
+                                            <input class="form-control py-4" id="loginpassword1" name="loginpassword1" type="password" placeholder="Enter password" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" required />
+                                                <label style="color: black;" class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <div class="btnn">
+                                                <button type="submit" class="btn btn-primary" id="loginButton">Login</button><br>
+                                            </div>
+                                            <div class="link">
+                                                <a class="small" href="\reset_password">Forgot Password?</a><br>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="/register">Need an account? Sign up!</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script>
+    const loginButton = document.getElementById('loginButton');
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Add the swing animation class
+        loginButton.classList.add('btn-swing');
+
+        // Wait for the animation to complete before navigating
+        setTimeout(() => {
+            // Submit the form after the animation
+            this.submit();
+        }, 500); // Duration of the swing animation
+    });
+</script>
+{% endblock body %}
